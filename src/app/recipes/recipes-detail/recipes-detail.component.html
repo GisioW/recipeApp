@@ -1,0 +1,57 @@
+<div class="card">
+  <div class="card-header">
+    {{pageTitle}}
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    Info erreur: {{errorMessage}}
+  </div>
+
+
+  <div class="card-body" *ngIf="recipe">
+    <div class="row">
+      <div class="col-md-4 text-center" *ngIf="recipe.imageUrl">
+        <img class="absolute-center embed-responsive" [style.width.px]="150"
+        [style.margin.px]="2"
+        [src]="recipe.imageUrl"
+        [title]="recipe.recipeName" >
+      </div>
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-3">Nom:</div>
+          <div class="col-md-6">{{recipe.recipeName}}</div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">Description:</div>
+          <div class="col-md-6">{{recipe.description}}</div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">Ingredients</div>
+          <div class="col-md-6">{{recipe.ingredients.toLocaleString()}}</div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">Durée préparation</div>
+          <div class="col-md-6">{{recipe.duration}}</div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">Date de création</div>
+          <div class="col-md-6">{{recipe.realeseDate | date}}</div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">Evalutation</div>
+          <div class="col-md-6"><app-star [rating]="recipe.starRating"></app-star></div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-md-4">
+        <button class="btn btn-outline-secondary mr-3" style="width: 80px;">
+            <i class="fa fa-chevron-left"></i> Retour
+        </button>
+        <button class="btn btn-outline-primary" style="width: 80px;">
+          Modifier
+      </button>
+      </div>
+    </div>
+  </div>
+</div>
