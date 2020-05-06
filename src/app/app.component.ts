@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from './user/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,14 +10,14 @@ import { AuthService } from './user/auth.service';
 export class AppComponent {
   title = 'Ankerako';
 
-  constructor(private authService: AuthService){}
+  constructor(private authService: AuthService, private router: Router){}
 
   get isLoggedIn(): boolean{
     return this.authService.isLoggedIn;
   }
 
   get userName(): string{
-    if(this.authService.currentUser){
+    if (this.authService.currentUser){
       return this.authService.currentUser.name;
     }
     return '';
@@ -24,6 +25,7 @@ export class AppComponent {
 
   logout(): void{
     this.authService.logout();
-    console.log('Deconnexion')
+    console.log('Deconnexion');
+    this.router.navigateByUrl('/welcome');
   }
 }

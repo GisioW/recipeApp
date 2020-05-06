@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { IRecipe } from './recipe';
-import { tap, catchError, map } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ export class RecipeService{
 
   private recipeUrl = 'api/recipes';
 
-  categories = ['Végan','Végétarien','Omnivore']
+  categories = ['Végan', 'Végétarien', 'Omnivore'];
 
   constructor(private http: HttpClient){}
 
@@ -23,12 +23,12 @@ export class RecipeService{
   getRecipes(): Observable<IRecipe[]> {
     return this.http.get<IRecipe[]>(this.recipeUrl)
     .pipe(
-      tap(data => console.log(JSON.stringify(data)))
+      tap(data => data)
     );
   }
 
   getRecipe(id: number): Observable<IRecipe>{
-    if(id === 0){
+    if (id === 0){
       return of(this.initializeRecipe());
     }else{
       const url = `${this.recipeUrl}/${id}`;
@@ -40,7 +40,7 @@ export class RecipeService{
   createRecipe(recipe: IRecipe): Observable<IRecipe> {
     const headers = new HttpHeaders({'Content-Type' : 'application/json'});
     recipe.id = null;
-    recipe.realeseDate = new Date().toISOString();
+    recipe.releaseDate = new Date().toISOString();
     return this.http.post<IRecipe>(this.recipeUrl, recipe, {headers})
                     .pipe(tap(data => console.log('getRecipe : ' + JSON.stringify(data))));
   }
@@ -53,11 +53,11 @@ export class RecipeService{
       .pipe(tap(data => console.log('delete recipe : ' + JSON.stringify(data))));
   }
 
-  updateRecipe(recipe: IRecipe) :Observable<IRecipe> {
+  updateRecipe(recipe: IRecipe): Observable<IRecipe> {
     const headers = new HttpHeaders({'Content-Type' : 'application/json'});
-    const url = `${this.recipeUrl}/{recipe.id}`;
+    const url = `${this.recipeUrl}/${recipe.id}`;
     return this.http.put<IRecipe>(url, recipe, {headers})
-                    .pipe(tap(() => console.log('Update recipe '+recipe.id)),
+                    .pipe(tap(() => console.log('Update recipe ' + recipe.id)),
                     map(() => recipe));
   }
 
@@ -78,7 +78,7 @@ export class RecipeService{
         recipeName: null,
         description: null,
         category: null,
-        realeseDate: null,
+        releaseDate: null,
         duration: null,
         ingredients: null,
         starRating: null,

@@ -2,11 +2,11 @@
   {{errorMessage}}
 </div>
 <div class="card">
-  <div class="card-header">
+  <div class="card-header text-center">
     {{pageTitle}}
   </div>
-  <div class="card-body" *ngIf="recipe">
-    <form novalidate #recipeForm="ngForm">
+  <div class="card-body">
+    <form novalidate #recipeForm="ngForm" *ngIf="recipe">
         <div class="form-group row">
           <label class="col-form-label col-md-2" for="nom">Nom</label>
           <div class="col-md-8">
@@ -60,11 +60,27 @@
         <div class="form-group row">
           <label class="col-form-label col-md-2" for="categorie">Categorie</label>
           <div class="col-md-8">
-            <select class="custom-select-sm" id="catagorie">
-              <option *ngFor="let categorie of categories" value="categorie" [(ngModel)]="recipe.category">{{categorie}}</option>
-            </select>
+            <input class = "form-control"
+                   id = "categorie"
+                   type = "text"
+                   placeholder ="Le nom de la recette (obligatoire)"
+                   minlength = 3
+                   [(ngModel)] = recipe.category
+                   name="categorie"/>
           </div>
         </div>
+
+      <div class="form-group row">
+        <label class="col-form-label col-md-2" for="image">Image</label>
+        <div class="col-md-8">
+          <div class="input-group mb-3">
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" id="image">
+              <label class="custom-file-label" for="image">Choisir une image</label>
+            </div>
+          </div>
+        </div>
+      </div>
 
         <div class="form-group row">
           <label class="col-form-label col-md-2" for="ingredient">Ingredients</label>
@@ -92,24 +108,25 @@
           </div>
         </div>
 
-        <div class="form-group row mb-2">
-          <div class="col-md-4">
-            <button class="btn btn-primary mr-3"
-            style="width: 80px;"
+        <div class="form-group row mb-5">
+          <div class="col-md-2"></div>
+          <div class="col-md-8">
+            <button class="btn btn-success mr-3"
+            style="width: 120px;"
             type="button"
             [title] ="recipeForm.valid ? 'Enregistre vos données' : 'Desactiver (attente validation du formulaire)'"
             [disabled]="!recipeForm.valid"
             (click)="saveProduct()">
-              Créer
+              Enregistrer
             </button>
             <button class="btn btn-primary mr-3"
-              style="width: 80px;"
+              style="width: 120px;"
               type="button"
-              title="Annuler la création">
+              title="Annuler la création" [routerLink]="['/recipes']" queryParamsHandling="preserve">
               Annuler
             </button>
-            <button class="btn btn-primary mr-3"
-              style="width: 80px;"
+            <button class="btn btn-danger mr-3"
+              style="width: 120px;"
               type="button"
               title="Supprimer la recette"
               (click)="deleteRecipe()">

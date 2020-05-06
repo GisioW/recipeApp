@@ -8,6 +8,11 @@ import { MessageModule } from './messages/message.module';
 import { UserModule } from './user/user.module';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { RecipeModule } from './recipes/recipe.module';
+import { RouterModule } from '@angular/router';
+import {RecipeData} from './recipes/recipe-data';
+import {delay} from 'rxjs/operators';
+import {HttpClientModule} from '@angular/common/http';
+import {AppRoutingModule} from './app-routing.module';
 
 
 @NgModule({
@@ -18,10 +23,12 @@ import { RecipeModule } from './recipes/recipe.module';
   ],
   imports: [
     BrowserModule,
-    MessageModule,
+    HttpClientInMemoryWebApiModule.forRoot(RecipeData, {delay: 1000}),
+    HttpClientModule,
+    RecipeModule,
     UserModule,
-    HttpClientInMemoryWebApiModule,
-    RecipeModule
+    MessageModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

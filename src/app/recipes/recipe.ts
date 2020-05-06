@@ -3,7 +3,7 @@ export interface IRecipe{
   recipeName: string;
   description: string;
   category: string;
-  realeseDate: string;
+  releaseDate: string;
   duration: string;
   ingredients: string;
   starRating: number;
@@ -11,6 +11,6 @@ export interface IRecipe{
 }
 
 export interface RecipeResolved {
-  recipe: IRecipe,
+  recipe: IRecipe;
   error?: any;
 }

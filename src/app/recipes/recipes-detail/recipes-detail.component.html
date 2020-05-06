@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-header">
-    {{pageTitle}}
+    <b>{{pageTitle}}</b>
   </div>
 
   <div *ngIf="errorMessage" class="alert alert-danger">
@@ -11,44 +11,45 @@
   <div class="card-body" *ngIf="recipe">
     <div class="row">
       <div class="col-md-4 text-center" *ngIf="recipe.imageUrl">
-        <img class="absolute-center embed-responsive" [style.width.px]="150"
+        <img class="absolute-center embed-responsive" [style.width.px]="350"
         [style.margin.px]="2"
         [src]="recipe.imageUrl"
         [title]="recipe.recipeName" >
       </div>
       <div class="col-md-8">
-        <div class="row">
+        <div class="row mb-3">
           <div class="col-md-3">Nom:</div>
           <div class="col-md-6">{{recipe.recipeName}}</div>
         </div>
-        <div class="row">
+        <div class="row mb-3">
           <div class="col-md-3">Description:</div>
           <div class="col-md-6">{{recipe.description}}</div>
         </div>
-        <div class="row">
+        <div class="row mb-3">
           <div class="col-md-3">Ingredients</div>
-          <div class="col-md-6">{{recipe.ingredients.toLocaleString()}}</div>
+          <div class="col-md-6">{{recipe.ingredients}}</div>
         </div>
-        <div class="row">
-          <div class="col-md-3">Durée préparation</div>
-          <div class="col-md-6">{{recipe.duration}}</div>
+        <div class="row mb-3">
+          <div class="col-md-3">Durée de la préparation</div>
+          <div class="col-md-6">{{recipe.duration}} Minutes</div>
         </div>
-        <div class="row">
+        <div class="row mb-3">
           <div class="col-md-3">Date de création</div>
-          <div class="col-md-6">{{recipe.realeseDate | date}}</div>
+          <div class="col-md-6">{{recipe.releaseDate | date}}</div>
         </div>
-        <div class="row">
+        <div class="row mb-3">
           <div class="col-md-3">Evalutation</div>
           <div class="col-md-6"><app-star [rating]="recipe.starRating"></app-star></div>
         </div>
       </div>
     </div>
     <div class="row mt-4">
-      <div class="col-md-4">
-        <button class="btn btn-outline-secondary mr-3" style="width: 80px;">
+      <label class="col-md-4"></label>
+      <div class="col-md-6">
+        <button class="btn btn-outline-secondary mr-3" style="width: 120px;" [routerLink]="['/recipes']" queryParamsHandling="preserve">
             <i class="fa fa-chevron-left"></i> Retour
         </button>
-        <button class="btn btn-outline-primary" style="width: 80px;">
+        <button class="btn btn-outline-primary" style="width: 120px;" [routerLink]="['/recipes',recipe.id, 'edit']">
           Modifier
       </button>
       </div>

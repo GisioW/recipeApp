@@ -3,39 +3,33 @@
 </div>
 
 <div class="card">
-  <div class="card-header">{{ pageTitle }}</div>
+  <div class="card-header text-center">{{ pageTitle }}</div>
   <div class="card-body">
-    <div class="row">
+    <div class="row mb-3">
       <div class="col-md-2">Recherche: </div>
-      <div class="col-md-4"><input type="text" [(ngModel)] = "listFilter"/></div>
-    </div>
-    <div class="row" *ngIf="listFilter">
-      <div class="col-md-6">
-        <h4>Recherche : {{listFilter}}</h4>
+      <div class="col-md-4">
+        <input type="text" [(ngModel)] = "listFilter"/>
       </div>
     </div>
+
 
     <div class="table-responsive">
       <table class="table mb-0" *ngIf="recipes && recipes.length">
         <thead>
-          <tr>
+          <tr class="text-center">
             <th>Nom</th>
             <th>Description</th>
             <th>Categorie</th>
             <th>Ingredients</th>
             <th>Evaluation</th>
-            <th>
-              <button class="btn btn-outline-primary btn-sm" (click)="toggleImage()">
-                  {{ showImage ? "Cacher ":"Afficher "}} Image
-              </button>
-            </th>
+            <th>Image</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let recipe of recipes; let i = index">
+          <tr *ngFor="let recipe of filteredRecipes; let i = index">
             <td>
-              {{recipe.recipeName}}
+              <a [routerLink]="['/recipes', recipe.id]" [queryParams]="{filterBy: listFilter}">{{recipe.recipeName}}</a>
             </td>
             <td>
               {{recipe.description}}
@@ -44,16 +38,16 @@
               {{recipe.category}}
             </td>
             <td>
-              {{recipe.ingredients.toString()}}
+              {{recipe.ingredients}}
             </td>
             <td>
               <app-star [rating]="recipe.starRating"></app-star>
             </td>
             <td>
-              <img *ngIf="showImage && recipe.imageUrl" [src]='recipe.imageUrl', [title] ="recipe.recipeName", [style.width.px]="imageWidth", [style.margin.px]="imageMargin">
+              <img [src]='recipe.imageUrl' [title] ="recipe.recipeName" [style.width.px]="imageWidth" [style.margin.px]="imageMargin">
             </td>
             <td>
-              <button class="btn btn-outline-primary btn-sm">
+              <button class="btn btn-outline-primary btn-sm" [routerLink]="['/recipes',recipe.id,'edit']">
                 Modifier
               </button>
             </td>

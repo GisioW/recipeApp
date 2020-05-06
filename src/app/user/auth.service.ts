@@ -6,11 +6,13 @@ import { MessageService } from '../messages/message.service';
   providedIn: 'root'
 })
 export class AuthService{
-  currentUser: IUser;
+  currentUser: IUser = null;
+  redirectUrl: string;
 
   constructor(private messageService: MessageService) {}
 
   get isLoggedIn(): boolean {
+    console.log('Current User ' + this.currentUser);
     return !!this.currentUser;
   }
 
@@ -18,19 +20,19 @@ export class AuthService{
     this.currentUser = null;
   }
 
-  login(userName:string, password: string): void{
-    if(!userName || !password){
+  login(userName: string, password: string): void{
+    if (!userName || !password){
       this.messageService.addMessage('Veuillez saisir un login et un mot de passe');
       return;
     }
 
-    if(userName === 'admin'){
+    if (userName === 'admin'){
       this.currentUser = {
         id: 1,
         name: userName,
         isAdmin: true
       };
-      this.messageService.addMessage('Admin Log');
+      this.messageService.addMessage('Connection avec le compte administrateur');
       return;
     }
 
@@ -39,7 +41,8 @@ export class AuthService{
       name: userName,
       isAdmin: false
     };
-    this.messageService.addMessage(`User: ${this.currentUser.name} logged in`)
+
+    this.messageService.addMessage(`L'utilisateur : ${this.currentUser.name} s'est connecté`);
   }
 
 }
