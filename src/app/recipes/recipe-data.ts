@@ -37,7 +37,8 @@ export class RecipeData implements InMemoryDbService {
         duration: '17',
         ingredients: 'pain, huile, vinaigre, sel, poivre, olives, tomates, oignons, concombres',
         starRating: 4,
-        imageUrl: '../../assets/images/recipe003.jpg'
+        imageUrl: '../../assets/images/recipe003.jpg',
+        tags: ['Salade', 'Végetarien', 'Santé']
       },
 
       {
@@ -60,7 +61,8 @@ export class RecipeData implements InMemoryDbService {
         duration: '45',
         ingredients: 'viande de beouf, tomates, salade, piments, citrons',
         starRating: 4.43,
-        imageUrl: '../../assets/images/recipe006.jpg'
+        imageUrl: '../../assets/images/recipe006.jpg',
+        tags: ['Viande', 'Protéine', 'Omnivore']
       }
     ];
     return { recipes};

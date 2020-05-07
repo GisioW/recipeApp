@@ -129,7 +129,9 @@
               style="width: 120px;"
               type="button"
               title="Supprimer la recette"
-              (click)="deleteRecipe()">
+              (click)="deleteRecipe()"
+              [hidden]="recipe.id === 0"
+            >
               Supprimer
             </button>
 

@@ -8,6 +8,7 @@ export interface IRecipe{
   ingredients: string;
   starRating: number;
   imageUrl: string;
+  tags?: string[];
 }
 
 export interface RecipeResolved {

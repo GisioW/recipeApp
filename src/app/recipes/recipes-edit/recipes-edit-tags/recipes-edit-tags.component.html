@@ -1,0 +1,58 @@
+<div class="alert alert-danger text-center" *ngIf="errorMessage">
+  {{errorMessage}}
+</div>
+<div class="card-body">
+  <form novalidate>
+    <fieldset>
+      <legend>Recherche Par Tag</legend>
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="categorie">Catégorie</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="categorie"
+                 type="text"
+                 required
+                 minlength="5"
+                 [(ngModel)]="recipe.category"
+                 name="categorie"
+                 #categorieVar="ngModel"
+                 [ngClass]="{'is-invalid':(categorieVar.touched || categorieVar.dirty || recipe.id === 0) && !categorieVar.valid}"/>
+          <span class="invalid-feedback">
+            <span *ngIf="categorieVar.errors?.required">
+              Le catégorie est obligatoire
+            </span>
+            <span *ngIf="categorieVar.errors?.minlength">
+              Le catégorie doit contenir au minimum 5 caractères
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="tag">Recherche de tags</label>
+        <div class="col-md-8">
+          <input class="form-control"
+            id="tag" type="text" [(ngModel)]="newTags" name="tag"/>
+
+        </div>
+        <div class="col-md-1">
+          <button class="btn btn-outline-primary" type="button" (click)="addTags()">
+            Ajouter
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-8 offset-md-2">
+          <span *ngFor="let tag of recipe.tags; let i = index">
+              <button class="btn btn-outline-warning"
+                      style="font-size: smaller; margin-bottom: 12px; margin-right: 2px"
+                       (click)="removeTag(i)">
+            {{tag}} <span class="fa fa-times-circle"></span>
+          </button>
+          </span>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>
