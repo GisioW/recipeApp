@@ -7,7 +7,6 @@ import { PageNotFountComponent } from './page-not-found.component';
 import { MessageModule } from './messages/message.module';
 import { UserModule } from './user/user.module';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { RecipeModule } from './recipes/recipe.module';
 import {RecipeData} from './recipes/recipe-data';
 import {HttpClientModule} from '@angular/common/http';
 import {AppRoutingModule} from './app-routing.module';
@@ -23,7 +22,6 @@ import {AppRoutingModule} from './app-routing.module';
     BrowserModule,
     HttpClientInMemoryWebApiModule.forRoot(RecipeData),
     HttpClientModule,
-    RecipeModule,
     UserModule,
     MessageModule,
     AppRoutingModule

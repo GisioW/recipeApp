@@ -14,21 +14,16 @@ import {RecipesEditGuard} from './recipes-edit/recipes-edit.guard';
   imports: [
     SharedModule,
     RouterModule.forChild([
-      {path: 'recipes',
-        canActivate: [AuthGuard],
-        children: [
-          {path: '', component: RecipesListComponent} ,
-          {path: ':id', component: RecipesDetailComponent, resolve: {recipeData: RecipesResolverService}},
-          {path: ':id/edit', component: RecipesEditComponent, resolve: {recipeData: RecipesResolverService},
-            canDeactivate: [RecipesEditGuard],
-            children: [
-              {path: '', redirectTo: 'info', pathMatch: 'full'},
-              {path: 'info', component: RecipesEditInfoComponent},
-              {path: 'tags', component: RecipesEditTagsComponent}
-            ]
-          }
-        ]
-      }
+        {path: '', component: RecipesListComponent} ,
+        {path: ':id', component: RecipesDetailComponent, resolve: {recipeData: RecipesResolverService}},
+        {path: ':id/edit', component: RecipesEditComponent, resolve: {recipeData: RecipesResolverService},
+          canDeactivate: [RecipesEditGuard],
+          children: [
+            {path: '', redirectTo: 'info', pathMatch: 'full'},
+            {path: 'info', component: RecipesEditInfoComponent},
+            {path: 'tags', component: RecipesEditTagsComponent}
+          ]
+        }
     ])
   ],
   declarations: [
