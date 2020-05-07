@@ -18,7 +18,7 @@ import { RecipesEditTagsComponent } from './recipes-edit/recipes-edit-tags/recip
         children: [
           {path: '', redirectTo: 'info', pathMatch: 'full'},
           {path: 'info', component: RecipesEditInfoComponent},
-          {path: 'tags', component: RecipesEditInfoComponent}
+          {path: 'tags', component: RecipesEditTagsComponent}
           ]
       }
     ])

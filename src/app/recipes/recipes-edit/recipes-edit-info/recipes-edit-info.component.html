@@ -2,83 +2,117 @@
   {{errorMessage}}
 </div>
 <div class="card-body">
-  <form novalidate #recipeForm="ngForm">
-    <fieldset>
-      <legend>Information sur la Recette</legend>
-      <div class="form-group row">
-        <label class="col-md-2 col-form-label" for="name">Name</label>
-        <div class="col-md-8">
-          <input class="form-control" disabled
-                 id="name"
-                 type="text"
-                 required
-                 minlength="5"
-                 [(ngModel)]="recipe.recipeName"
-                 name="name"
-                 #nameVar="ngModel"
-                 [ngClass]="{'is-invalid':(nameVar.touched || nameVar.dirty || recipe.id === 0) && !nameVar.valid}"/>
-          >
-          <span class="invalid-feedback">
-            <span *ngIf="nameVar.errors?.required">
-              Le Nom de la recette est obligatoire
+  <form novalidate #recipeForm="ngForm" *ngIf="recipe">
+    <div class="form-group row">
+      <label class="col-form-label col-md-2" for="nom">Nom</label>
+      <div class="col-md-8">
+        <input class = "form-control"
+               id = "nom"
+               type = "text"
+               required
+               placeholder ="Le nom de la recette (obligatoire)"
+               minlength = 3
+               [(ngModel)] = recipe.recipeName
+               name="nom"
+               #nomVar="ngModel"
+               [ngClass]="{'is-invalid': (nomVar.touched || nomVar.dirty) && !nomVar.valid}"/>
+        <span class="invalid-feedback">
+                  <span *ngIf="nomVar.errors?.required">
+                    Le nom de la recette est obligatoire
+                  </span>
+                  <span *ngIf="nomVar.errors?.minlength">
+                    Le nom de la recette doit contenir au minimum 3 caractères
+                  </span>
+                </span>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-form-label col-md-2" for="description">Description</label>
+      <div class="col-md-8">
+            <textarea
+              class="form-control"
+              id="description"
+              rows="3"
+              required
+              minlength = 10
+              placeholder = "La description de la recette est obligatoire"
+              [(ngModel)] = recipe.description
+              name="description"
+              #descriptionVar="ngModel"
+              [ngClass] = "{'is-invalid': (descriptionVar.touched || descriptionVar.dirty) && !descriptionVar.valid}">
+            </textarea>
+            <span class="invalid-feedback">
+              <span *ngIf="descriptionVar.errors?.required">
+                La description de la recette est obligatoire
+              </span>
+              <span *ngIf="descriptionVar.errors?.minlength">
+                La description de la recette doit contenir au minimum 10 caractères
+              </span>
             </span>
-            <span *ngIf="nameVar.errors?.minlength">
-              Le Nom de la recette  doit contenir au minimum 5 caractères
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-form-label col-md-2" for="categorie">Categorie</label>
+      <div class="col-md-8">
+        <input class = "form-control"
+               id = "categorie"
+               type = "text"
+               placeholder ="Le nom de la recette (obligatoire)"
+               minlength = 3
+               required
+               [(ngModel)] = recipe.category
+               name="categorie"
+               #categorieVar="ngModel"
+               [ngClass] = "{'is-invalid': (categorieVar.touched || categorieVar.dirty) && !categorieVar.valid}"/>
+      </div>
+      <span class="invalid-feedback">
+              <span *ngIf="categorieVar.errors?.required">
+                La Catégorie de la recette est obligatoire
+              </span>
+              <span *ngIf="categorieVar.errors?.minlength">
+                La Catégorie de la recette doit contenir au minimum 3 caractères
+              </span>
             </span>
-          </span>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-form-label col-md-2" for="image">Image</label>
+      <div class="col-md-8">
+        <div class="input-group mb-3">
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" id="image">
+            <label class="custom-file-label" for="image">Choisir une image</label>
+          </div>
         </div>
       </div>
+    </div>
 
-      <div class="form-group row">
-        <label class="col-md-2 col-form-label" for="categorie">Catégorie</label>
-        <div class="col-md-8">
-          <input class="form-control" disabled
-                 id="categorie"
-                 type="text"
-                 required
-                 minlength="5"
-                 [(ngModel)]="recipe.category"
-                 name="categorie"
-                 #categorieVar="ngModel"
-                 [ngClass]="{'is-invalid':(categorieVar.touched || categorieVar.dirty || recipe.id === 0) && !categorieVar.valid}"/>
-          >
-          <span class="invalid-feedback">
-            <span *ngIf="categorieVar.errors?.required">
-              Le catégorie est obligatoire
+    <div class="form-group row">
+      <label class="col-form-label col-md-2" for="ingredient">Ingredients</label>
+      <div class="col-md-8">
+            <textarea
+              class="form-control"
+              id="ingredient"
+              rows="3"
+              required
+              minlength = 20
+              placeholder = "Les ingrédients de la recette est obligatoire"
+              [(ngModel)] = recipe.ingredients
+              name="ingredient"
+              #ingredientVar="ngModel"
+              [ngClass] = "{'is-invalid': (ingredientVar.touched || ingredientVar.dirty) && !ingredientVar.valid}">
+            </textarea>
+        <span class="invalid-feedback">
+              <span *ngIf="ingredientVar.errors?.required">
+                Les ingrédtient de la recette est obligatoire
+              </span>
+              <span *ngIf="ingredientVar.errors?.minlength">
+                Les ingrédtient de la recette doit contenir au minimum 20 caractères
+              </span>
             </span>
-            <span *ngIf="categorieVar.errors?.minlength">
-              Le catégorie doit contenir au minimum 5 caractères
-            </span>
-          </span>
-        </div>
       </div>
-
-
-      <div class="form-group row">
-        <label class="col-md-2 col-form-label" for="description">Description</label>
-        <div class="col-md-8">
-          <textarea class="form-control" disabled
-                 id="description"
-                 type="text"
-                 required
-                 minlength="20"
-                 [(ngModel)]="recipe.description"
-                 name="description"
-                 #descriptionVar="ngModel"
-                 [ngClass]="{'is-invalid':(descriptionVar.touched || descriptionVar.dirty || recipe.id === 0) && !descriptionVar.valid}">
-        </textarea>
-          <span class="invalid-feedback">
-            <span *ngIf="categorieVar.errors?.required">
-              Le catégorie est obligatoire
-            </span>
-            <span *ngIf="categorieVar.errors?.minlength">
-              Le catégorie doit contenir au minimum 20 caractères
-            </span>
-          </span>
-        </div>
-      </div>
-
-      </div>
-    </fieldset>
+    </div>
   </form>
 </div>

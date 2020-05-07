@@ -14,6 +14,7 @@ export class RecipesEditComponent implements OnInit {
   pageTitle = 'Créer/Modifier une recette';
   errorMessage: string;
   recipe: IRecipe;
+  private dataIsValid: {[key: string]: boolean} = {};
 
   constructor(private recipeService: RecipeService,
               private messageService: MessageService,
@@ -71,7 +72,7 @@ export class RecipesEditComponent implements OnInit {
 
 
   saveProduct(): void{
-    if (true === true){
+    if (this.isValid()){
       if (this.recipe.id  === 0){
         this.recipeService.createRecipe(this.recipe).subscribe({
           next: () => this.onSaveRecipe(`La recette ${this.recipe.recipeName} a été crée`),
@@ -84,8 +85,33 @@ export class RecipesEditComponent implements OnInit {
         });
       }
     }else {
-      this.errorMessage = 'Erreur inconnue';
+      this.errorMessage = 'Veuillez corriger les erreurs';
     }
   }
 
+  validate(): void{
+    this.dataIsValid = {};
+    if (this.recipe.recipeName &&
+        this.recipe.category.length >= 3 &&
+        this.recipe.description.length >= 10 &&
+        this.recipe.ingredients.length >= 20){
+      this.dataIsValid.info = true;
+    } else{
+      this.dataIsValid.info = false;
+    }
+
+    if (this.recipe.category.length >= 5 && this.recipe.category){
+      this.dataIsValid.tags = true;
+    }else{
+      this.dataIsValid.info = false;
+    }
+  }
+
+  isValid(path?: string): boolean {
+    this.validate();
+    if (path){
+      return this.dataIsValid[path];
+    }
+    return ( this.dataIsValid && Object.keys(this.dataIsValid).every(d => this.dataIsValid[d] === true));
+  }
 }
