@@ -10,11 +10,11 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./recipes-edit.component.css']
 })
 export class RecipesEditComponent implements OnInit {
-
   pageTitle = 'Créer/Modifier une recette';
   errorMessage: string;
-  recipe: IRecipe;
   private dataIsValid: {[key: string]: boolean} = {};
+  private currentData: IRecipe;
+  private originalData: IRecipe;
 
   constructor(private recipeService: RecipeService,
               private messageService: MessageService,
@@ -22,6 +22,16 @@ export class RecipesEditComponent implements OnInit {
               private router: Router) {
 
    }
+
+   get recipe(): IRecipe{
+    return this.currentData;
+   }
+
+   set recipe(value: IRecipe){
+    this.currentData = value;
+    this.originalData = { ...value};
+   }
+
 
   deleteRecipe(): void{
     if (this.recipe.id === 0){
@@ -40,7 +50,7 @@ export class RecipesEditComponent implements OnInit {
 
 
   onRecipeRetrieved(recipe: IRecipe){
-    this.recipe = recipe;
+    this.currentData = recipe;
     if (!this.recipe){
       this.pageTitle = 'Aucune recette associée';
     }else{
@@ -57,6 +67,7 @@ export class RecipesEditComponent implements OnInit {
       this.messageService.addMessage(message);
     }
     this.router.navigate(['/recipes']);
+    this.resetInfo();
   }
 
 
@@ -114,4 +125,19 @@ export class RecipesEditComponent implements OnInit {
     }
     return ( this.dataIsValid && Object.keys(this.dataIsValid).every(d => this.dataIsValid[d] === true));
   }
+
+  /**
+   * Faire attention. ICI normalement il faudra comparer un a un les element
+   * de chaque Objet
+   */
+  get isDirty(): boolean{
+    return JSON.stringify(this.originalData) !== JSON.stringify(this.currentData);
+  }
+
+  resetInfo(){
+    this.dataIsValid = null;
+    this.currentData = null;
+    this.originalData = null;
+  }
+
 }
