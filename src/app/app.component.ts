@@ -31,6 +31,7 @@ export class AppComponent {
   logout(): void{
     this.authService.logout();
     console.log('Déconnexion');
+    this.messageService.messages.splice(0, this.messageService.messages.length);
     this.router.navigateByUrl('/welcome');
   }
 
