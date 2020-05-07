@@ -12,14 +12,18 @@ import { RecipesEditTagsComponent } from './recipes-edit/recipes-edit-tags/recip
   imports: [
     SharedModule,
     RouterModule.forChild([
-      {path: 'recipes', component: RecipesListComponent},
-      {path: 'recipes/:id', component: RecipesDetailComponent, resolve: {recipeData: RecipesResolverService}},
-      {path: 'recipes/:id/edit', component: RecipesEditComponent, resolve: {recipeData: RecipesResolverService},
+      {path: 'recipes',
         children: [
-          {path: '', redirectTo: 'info', pathMatch: 'full'},
-          {path: 'info', component: RecipesEditInfoComponent},
-          {path: 'tags', component: RecipesEditTagsComponent}
-          ]
+          {path: '', component: RecipesListComponent} ,
+          {path: ':id', component: RecipesDetailComponent, resolve: {recipeData: RecipesResolverService}},
+          {path: ':id/edit', component: RecipesEditComponent, resolve: {recipeData: RecipesResolverService},
+            children: [
+              {path: '', redirectTo: 'info', pathMatch: 'full'},
+              {path: 'info', component: RecipesEditInfoComponent},
+              {path: 'tags', component: RecipesEditTagsComponent}
+            ]
+          }
+        ]
       }
     ])
   ],
