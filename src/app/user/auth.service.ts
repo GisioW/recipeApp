@@ -12,7 +12,6 @@ export class AuthService{
   constructor(private messageService: MessageService) {}
 
   get isLoggedIn(): boolean {
-    console.log('Current User ' + this.currentUser);
     return !!this.currentUser;
   }
 
@@ -42,7 +41,7 @@ export class AuthService{
       isAdmin: false
     };
 
-    this.messageService.addMessage(`L'utilisateur : ${this.currentUser.name} s'est connecté`);
+    this.messageService.addMessage(`Connexion de ${this.currentUser.name}  `);
   }
 
 }

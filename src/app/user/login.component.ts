@@ -14,8 +14,9 @@ export class LoginComponent{
   constructor(private authService: AuthService, private router: Router){}
 
   login(loginForm: NgForm){
+    console.log('Info login Form ' + loginForm.valid);
     if (loginForm && loginForm.valid){
-      const name = loginForm.form.value.username;
+      const name = loginForm.form.value.login;
       const password = loginForm.form.value.password;
       this.authService.login(name, password);
       if (this.authService.redirectUrl){

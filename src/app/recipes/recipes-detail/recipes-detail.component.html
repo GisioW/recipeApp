@@ -11,10 +11,10 @@
   <div class="card-body" *ngIf="recipe">
     <div class="row">
       <div class="col-md-4 text-center" *ngIf="recipe.imageUrl">
-        <img class="absolute-center embed-responsive" [style.width.px]="350"
+        <img class="absolute-center img-fluid" [style.width.px]="350"
         [style.margin.px]="2"
         [src]="recipe.imageUrl"
-        [title]="recipe.recipeName" >
+        [title]="recipe.recipeName">
       </div>
       <div class="col-md-8">
         <div class="row mb-3">

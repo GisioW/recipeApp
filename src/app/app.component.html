@@ -16,7 +16,10 @@
         <a class="nav-link" [routerLink]="['/welcome']" routerLinkActive="active">Bienvenue {{userName}}</a>
       </li>
       <li class="nav-item m-1">
-        <a class="nav-link">Messages</a>
+        <a class="nav-link" (click)="displayMessages()" *ngIf="!isMessageDisplayed">Afficher Messages</a>
+      </li>
+      <li class="nav-item m-1">
+        <a class="nav-link" (click)="hideMessages()" *ngIf="isMessageDisplayed ">Cacher Messages</a>
       </li>
       <li class="nav-item m-1" *ngIf="!isLoggedIn">
         <a class="nav-link" [routerLink]="['/login']" routerLinkActive="active">Connexion</a>
@@ -27,5 +30,13 @@
     </ul>
 </nav>
 <div class="container mt-3">
-  <router-outlet></router-outlet>
+  <div class="row">
+    <div class="col-md-10">
+      <router-outlet ></router-outlet>
+    </div>
+    <div class="col-md-2">
+      <router-outlet name="message"></router-outlet>
+    </div>
+  </div>
+
 </div>
