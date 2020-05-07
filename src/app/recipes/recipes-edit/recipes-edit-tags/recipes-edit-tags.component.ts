@@ -15,6 +15,9 @@ export class RecipesEditTagsComponent implements OnInit {
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.route.parent.data.subscribe( data => {
+      this.recipe = data.recipeData.recipe;
+    });
   }
 
   addTags(): void {

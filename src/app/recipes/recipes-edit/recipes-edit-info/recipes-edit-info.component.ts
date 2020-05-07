@@ -21,7 +21,7 @@ export class RecipesEditInfoComponent implements OnInit {
       if (this.recipeForm){
         this.recipeForm.reset();
       }
-      this.recipe = data.resolvedData.recipe;
+      this.recipe = data.recipeData.recipe;
     });
   }
 

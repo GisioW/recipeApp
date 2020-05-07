@@ -14,7 +14,13 @@ import { RecipesEditTagsComponent } from './recipes-edit/recipes-edit-tags/recip
     RouterModule.forChild([
       {path: 'recipes', component: RecipesListComponent},
       {path: 'recipes/:id', component: RecipesDetailComponent, resolve: {recipeData: RecipesResolverService}},
-      {path: 'recipes/:id/edit', component: RecipesEditComponent, resolve: {recipeData: RecipesResolverService}}
+      {path: 'recipes/:id/edit', component: RecipesEditComponent, resolve: {recipeData: RecipesResolverService},
+        children: [
+          {path: '', redirectTo: 'info', pathMatch: 'full'},
+          {path: 'info', component: RecipesEditInfoComponent},
+          {path: 'tags', component: RecipesEditInfoComponent}
+          ]
+      }
     ])
   ],
   declarations: [
