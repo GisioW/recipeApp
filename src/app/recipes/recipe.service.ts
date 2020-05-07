@@ -11,14 +11,8 @@ export class RecipeService{
 
   private recipeUrl = 'api/recipes';
 
-  categories = ['Végan', 'Végétarien', 'Omnivore'];
-
   constructor(private http: HttpClient){}
 
-
-  getCategories(): Observable<string[]>{
-    return of(this.categories);
-  }
 
   getRecipes(): Observable<IRecipe[]> {
     return this.http.get<IRecipe[]>(this.recipeUrl)

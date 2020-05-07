@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IRecipe } from '../recipe';
-import { RecipeService } from '../recipe.service';
+import {IRecipe, RecipeResolved} from '../recipe';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
@@ -14,23 +13,19 @@ export class RecipesDetailComponent implements OnInit {
   recipe: IRecipe;
   errorMessage: string;
 
-  constructor(private recipeService: RecipeService, private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(
-      params => {
-        const id = +params.get('id');
-        this.getRecipe(id);
+    this.route.data.subscribe(
+      data => {
+        const recipeData: RecipeResolved = data.recipeData;
+        this.errorMessage = recipeData.error;
+        this.onRecipeRetrieve(recipeData.recipe);
       }
     );
   }
 
-  getRecipe(id: number){
-    return this.recipeService.getRecipe(id).subscribe({
-      next: recipe => this.onRecipeRetrieve(recipe),
-      error: err => this.errorMessage = err
-    });
-  }
+
 
   onRecipeRetrieve(recipe: IRecipe): void{
     this.recipe = recipe;

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RecipeService } from '../recipe.service';
 import { MessageService } from 'src/app/messages/message.service';
-import { IRecipe } from '../recipe';
+import {IRecipe, RecipeResolved} from '../recipe';
 import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
@@ -14,7 +14,6 @@ export class RecipesEditComponent implements OnInit {
   pageTitle = 'Créer/Modifier une recette';
   errorMessage: string;
   recipe: IRecipe;
-  categories: string[] = [];
 
   constructor(private recipeService: RecipeService,
               private messageService: MessageService,
@@ -22,13 +21,6 @@ export class RecipesEditComponent implements OnInit {
               private router: Router) {
 
    }
-
-  getRecipe(id: number): void {
-    this.recipeService.getRecipe(id).subscribe({
-      next: recipe => this.onRecipeRetrieved(recipe),
-      error: err => this.errorMessage = err
-    });
-  }
 
   deleteRecipe(): void{
     if (this.recipe.id === 0){
@@ -68,10 +60,11 @@ export class RecipesEditComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(
-      params => {
-        const id = +params.get('id');
-        this.getRecipe(id);
+    this.route.data.subscribe(
+      data => {
+        const recipeData: RecipeResolved = data.recipeData;
+        this.errorMessage = recipeData.error;
+        this.onRecipeRetrieved(recipeData.recipe);
       }
     );
   }

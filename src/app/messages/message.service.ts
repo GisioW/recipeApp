@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class MessageService{
+  // tslint:disable-next-line:variable-name
   private _messages: string[] = [];
 
   get messages(){
@@ -12,6 +13,6 @@ export class MessageService{
 
   addMessage(message: string): void{
     const currentDate = new Date();
-    this.messages.unshift(message + ' at '+ currentDate.toDateString());
+    this.messages.unshift(message + ' at ' + currentDate.toDateString());
   }
 }

@@ -4,14 +4,15 @@ import { RecipesDetailComponent } from './recipes-detail/recipes-detail.componen
 import { RecipesEditComponent } from './recipes-edit/recipes-edit.component';
 import { RecipesListComponent } from './recipes-list/recipes-list.component';
 import {RouterModule} from '@angular/router';
+import {RecipesResolverService} from './recipes-resolver/recipes-resolver.service';
 
 @NgModule({
   imports: [
     SharedModule,
     RouterModule.forChild([
       {path: 'recipes', component: RecipesListComponent},
-      {path: 'recipes/:id', component: RecipesDetailComponent},
-      {path: 'recipes/:id/edit', component: RecipesEditComponent}
+      {path: 'recipes/:id', component: RecipesDetailComponent, resolve: {recipeData: RecipesResolverService}},
+      {path: 'recipes/:id/edit', component: RecipesEditComponent, resolve: {recipeData: RecipesResolverService}}
     ])
   ],
   declarations: [
