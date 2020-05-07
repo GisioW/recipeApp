@@ -7,8 +7,8 @@
   </div>
   <div class="card-body" *ngIf="recipe">
     <div class="wizard">
-      <a [routerLink]="['info']">Détails</a>
-      <a [routerLink]="['tags']">Tags</a>
+      <a [routerLink]="['info']" routerLinkActive="active">Détails <span [ngClass]="{'fa fa-exclamation' :!isValid('info')}"></span></a>
+      <a [routerLink]="['tags']" routerLinkActive="active">Tags <span [ngClass]="{'fa fa-exclamation' :!isValid('tags')}"></span></a>
     </div>
     <router-outlet></router-outlet>
 
@@ -32,6 +32,7 @@
                 style="width: 120px;"
                 type="button"
                 title="Supprimer la recette"
+                [disabled]="!isValid()"
                 (click)="deleteRecipe()">
           Supprimer
         </button>

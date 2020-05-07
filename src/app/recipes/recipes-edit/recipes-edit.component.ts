@@ -100,7 +100,7 @@ export class RecipesEditComponent implements OnInit {
       this.dataIsValid.info = false;
     }
 
-    if (this.recipe.category.length >= 5 && this.recipe.category){
+    if (this.recipe.category && this.recipe.category.length >= 5 ){
       this.dataIsValid.tags = true;
     }else{
       this.dataIsValid.info = false;

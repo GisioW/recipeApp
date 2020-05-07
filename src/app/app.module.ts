@@ -23,7 +23,7 @@ import {AppRoutingModule} from './app-routing.module';
   ],
   imports: [
     BrowserModule,
-    HttpClientInMemoryWebApiModule.forRoot(RecipeData, {delay: 1000}),
+    HttpClientInMemoryWebApiModule.forRoot(RecipeData),
     HttpClientModule,
     RecipeModule,
     UserModule,
